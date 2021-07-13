@@ -1,0 +1,47 @@
+<project    name    = "ito"
+            default = "build"
+            basedir = ".">  
+	
+    <property environment = "env"/> 
+    <taskdef name="Build"      classname="com.spicysoft.ant.vodafone.Build"  classpath="${env.SS_DOJA_ANT}"/>
+	<taskdef name="Run"        classname="com.spicysoft.ant.vodafone.Run"    classpath="${env.SS_DOJA_ANT}"/>	
+
+	<property name="temp"    value = "../temp/vodafone"/>
+	<property name="output"  value = "../output/vodafone"/>
+	<property name="AOS"     value = "../../AOS_V/src/"/>
+
+    <target name="setup">
+		<mkdir dir="${temp}"/>
+		<mkdir dir="${temp}/classes"/>
+		<mkdir dir="${temp}/compressed"/>
+		<mkdir dir="${temp}/preverified"/>
+		<mkdir dir="${temp}/bclasses"/>
+		<mkdir dir="${temp}/emubin"/>
+    	<mkdir dir="${output}"/>
+    </target>
+	
+    <target  name="build" depends="setup">
+    	<copy file="ito.jad" tofile="${output}/ito.jad"/>
+    	<Build sdk         = "${env.VAPPLI_HOME}"
+               src         = "src;${AOS}"
+    		   classes     = "${temp}/classes"
+               preverified = "${temp}/preverified"
+               compressed  = "${temp}/compressed"
+               bin         = "${output}"
+               filename    = "ito"
+    		   manifest    = "MANIFEST.MF"
+    		   res         = "res-vodafone"
+               blender     = "no" />
+    </target>
+
+    <target name="run" depends="build">
+    	<copy file = "${output}/ito.jad" todir="${temp}/emubin/"/>
+    	<copy file = "${output}/ito.jar" todir="${temp}/emubin/"/>
+    	
+        <Run    sdk    = "${env.VAPPLI_HOME}"
+                jad    = "ito.jad"
+        />
+    </target>
+
+                	
+</project>

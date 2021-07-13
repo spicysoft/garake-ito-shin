@@ -1,0 +1,47 @@
+<project    name    = "ito"
+            default = "run"
+            basedir = ".">  
+	
+    <property environment = "env"/> 
+    <taskdef name="Build"  classname="com.spicysoft.ant.docomo.Build"  classpath="${env.SS_DOJA_ANT}"/>
+	<taskdef name="Run"    classname="com.spicysoft.ant.docomo.Run"    classpath="${env.SS_DOJA_ANT}"/>
+
+	<property name="temp"    value = "../temp/docomo/"/>
+	<property name="output"  value = "../output/docomo/"/>
+	<property name="AOS"     value = "../../AOS_I/src/"/>
+
+    <target name="setup">
+		<mkdir dir="${temp}"/>
+		<mkdir dir="${temp}/classes"/>
+		<mkdir dir="${temp}/compressed"/>
+		<mkdir dir="${temp}/preverified"/>
+		<mkdir dir="${temp}/bclasses"/>
+    	<mkdir dir="${output}"/>
+    </target>
+	
+    <target  name="build" depends="setup">
+    	<copy file="ito.jam" tofile="${output}/ito.jam"/>
+    	<Build       sdk         = "${env.DOJA_HOME}"
+                     src         = "src;${AOS}"
+    				 classes     = "${temp}/classes"
+                     preverified = "${temp}/preverified"
+                     compressed  = "${temp}/compressed"
+                     bin         = "${output}"
+                     filename    = "ito"
+    				 res         = "res-docomo"
+                     blender     = "no" />
+    </target>
+
+    <target name="run" depends="build">
+    	<copy file = "${output}/ito.jam" todir="${temp}/emubin/"/>
+    	<copy file = "${output}/ito.jar" todir="${temp}/emubin/"/>
+    	
+        <Run    sdk    = "${env.DOJA_HOME}"
+                run    = "${temp}/emubin"
+                jam    = "ito.jam"
+                adfurl = "http://localhost:8080/ito.jam"
+                launchtype = "LAUNCH_FROM_MENU"
+        />
+    </target>
+	
+</project>

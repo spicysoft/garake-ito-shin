@@ -1,0 +1,17 @@
+MIDlet-1: 真・糸通し,icon.png,OS
+MIDlet-Name: 真・糸通し
+MIDlet-Version: 1.0.0
+MIDlet-Vendor: satoo × アプゲ
+MIDlet-Description: ただひたすら針穴に糸を通す
+MIDlet-Data-Size: 300
+MIDlet-Save: X
+MIDlet-OCL: JSCL-1.2.0
+MIDlet-Application-Range: 0,0
+MIDlet-Info-URL: http://appget.com/
+MIDlet-Aux: Y
+MIDlet-Icon: icon.png
+MIDlet-Network: Y
+MIDxlet-API: JSCL-1.2.0
+MIDlet-Jar-URL: ito.jar
+MIDlet-Jar-Size: 33588
+X-SPsize: 200
